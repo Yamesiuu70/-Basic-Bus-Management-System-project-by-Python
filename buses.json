@@ -1,0 +1,32 @@
+{
+    "BUS001": {
+        "route": "New York to Boston",
+        "total_seats": 50,
+        "available_seats": 50,
+        "booked_tickets": 0
+    },
+    "BUS002": {
+        "route": "Boston to Philadelphia",
+        "total_seats": 40,
+        "available_seats": 35,
+        "booked_tickets": 5
+    },
+    "BUS003": {
+        "route": "Philadelphia to Washington DC",
+        "total_seats": 45,
+        "available_seats": 45,
+        "booked_tickets": 0
+    },
+    "4": {
+        "route": "rqq",
+        "total_seats": 2,
+        "available_seats": 2,
+        "booked_tickets": 0
+    },
+    "BUS005": {
+        "route": "Dhaka to Ctg",
+        "total_seats": 5,
+        "available_seats": 5,
+        "booked_tickets": 0
+    }
+}
