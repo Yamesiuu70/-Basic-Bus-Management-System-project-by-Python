@@ -2,8 +2,8 @@
     "BUS001": {
         "route": "New York to Boston",
         "total_seats": 50,
-        "available_seats": 50,
-        "booked_tickets": 0
+        "available_seats": 20,
+        "booked_tickets": 30
     },
     "BUS002": {
         "route": "Boston to Philadelphia",
@@ -15,12 +15,6 @@
         "route": "Philadelphia to Washington DC",
         "total_seats": 45,
         "available_seats": 45,
-        "booked_tickets": 0
-    },
-    "4": {
-        "route": "rqq",
-        "total_seats": 2,
-        "available_seats": 2,
         "booked_tickets": 0
     },
     "BUS005": {

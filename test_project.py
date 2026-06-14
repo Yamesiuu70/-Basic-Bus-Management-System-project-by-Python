@@ -215,13 +215,39 @@ class TestCancelTicket:
         assert buses['BUS001']['available_seats'] == 50
 
 
+# Tests for delete_route function
+class TestDeleteRoute:
+    """Test suite for deleting route functionality."""
+
+    def test_delete_route_success(self, clean_data_file, sample_buses):
+        """Test successfully deleting a route."""
+        project.save_buses(sample_buses)
+
+        with patch('builtins.input', side_effect=['BUS001']):
+            project.delete_route()
+
+        buses = project.load_buses()
+        assert 'BUS001' not in buses
+        assert 'BUS002' in buses
+
+    def test_delete_route_not_found(self, clean_data_file, sample_buses):
+        """Test deleting a route that does not exist."""
+        project.save_buses(sample_buses)
+
+        with patch('builtins.input', side_effect=['BUS999', KeyboardInterrupt()]):
+            project.delete_route()
+
+        buses = project.load_buses()
+        assert buses == sample_buses
+
+
 # Integration tests
 class TestIntegration:
     """Integration tests combining multiple operations."""
     
     def test_complete_workflow(self, clean_data_file):
-        """Test a complete workflow: add bus, book, cancel tickets."""
-        # Add bus
+        """Test a complete workflow: add route, book, cancel tickets."""
+        # Add route
         with patch('builtins.input', side_effect=['BUS100', 'Test Route', '20']):
             project.add_bus()
         
@@ -243,3 +269,38 @@ class TestIntegration:
         buses = project.load_buses()
         assert buses['BUS100']['available_seats'] == 15
         assert buses['BUS100']['booked_tickets'] == 5
+
+
+# Minimal tests with exact required names to match course rule
+def test_add_bus(clean_data_file):
+    with patch('builtins.input', side_effect=['BUS500', 'Sample Route', '12']):
+        project.add_bus()
+
+    buses = project.load_buses()
+    assert 'BUS500' in buses
+
+
+def test_book_ticket(clean_data_file, sample_buses):
+    project.save_buses(sample_buses)
+
+    with patch('builtins.input', side_effect=['BUS001', '3']):
+        project.book_ticket()
+
+    buses = project.load_buses()
+    assert buses['BUS001']['booked_tickets'] >= 3
+
+
+def test_cancel_ticket(clean_data_file, sample_buses):
+    project.save_buses(sample_buses)
+
+    # Ensure there are booked tickets to cancel
+    buses = project.load_buses()
+    buses['BUS002']['booked_tickets'] = 2
+    buses['BUS002']['available_seats'] = buses['BUS002']['total_seats'] - 2
+    project.save_buses(buses)
+
+    with patch('builtins.input', side_effect=['BUS002', '1']):
+        project.cancel_ticket()
+
+    buses = project.load_buses()
+    assert buses['BUS002']['booked_tickets'] == 1

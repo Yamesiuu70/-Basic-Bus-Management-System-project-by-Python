@@ -90,7 +90,7 @@ def add_bus():
             print("\nOperation cancelled.")
             return
     
-    # Add bus to dictionary
+    # Add route to dictionary
     buses[bus_number] = {
         "route": route,
         "total_seats": total_seats,
@@ -222,6 +222,37 @@ def cancel_ticket():
     print(f"✓ Successfully cancelled {num_tickets} ticket(s) on bus {bus_number}!")
 
 
+def delete_route():
+    """
+    Delete a route entry from the system.
+    Validates that the bus exists before removing it.
+    """
+    buses = load_buses()
+
+    if not buses:
+        print("Error: No buses available in the system.")
+        return
+
+    while True:
+        try:
+            bus_number = input("\nEnter bus number to delete route: ").strip()
+
+            if bus_number not in buses:
+                print("Error: Bus number not found.")
+                continue
+
+            break
+        except KeyboardInterrupt:
+            print("\nOperation cancelled.")
+            return
+
+    removed_route = buses[bus_number]["route"]
+    del buses[bus_number]
+
+    save_buses(buses)
+    print(f"✓ Route '{removed_route}' removed successfully!")
+
+
 def view_buses():
     """
     Display all buses with their details including route, total seats,
@@ -255,13 +286,14 @@ def main():
     
     while True:
         print("\n--- Main Menu ---")
-        print("1. Add Bus")
+        print("1. Add Route")
         print("2. Book Ticket")
         print("3. Cancel Ticket")
-        print("4. View All Buses")
-        print("5. Exit")
+        print("4. Delete Route")
+        print("5. View All Buses")
+        print("6. Exit")
         
-        choice = input("\nEnter your choice (1-5): ").strip()
+        choice = input("\nEnter your choice (1-6): ").strip()
         
         if choice == "1":
             add_bus()
@@ -270,12 +302,14 @@ def main():
         elif choice == "3":
             cancel_ticket()
         elif choice == "4":
-            view_buses()
+            delete_route()
         elif choice == "5":
+            view_buses()
+        elif choice == "6":
             print("\n✓ Thank you for using Bus Management System. Goodbye!")
             break
         else:
-            print("Error: Invalid choice. Please enter a number between 1 and 5.")
+            print("Error: Invalid choice. Please enter a number between 1 and 6.")
 
 
 if __name__ == "__main__":

@@ -12,7 +12,7 @@ This project demonstrates core programming concepts including data persistence, 
 
 ## Core Features
 
-### 1. **Add Bus Function**
+### 1. **Add Route Function**
 The `add_bus()` function allows administrators to add new buses to the system. When adding a bus, users must provide:
 - **Bus Number:** A unique identifier for each bus (validates that duplicates cannot be added)
 - **Route:** The travel route/destination (e.g., "New York to Boston")
@@ -41,7 +41,13 @@ The `cancel_ticket()` function allows passengers to cancel their reservations. T
 - Increments the available seat count
 - Decrements the booked tickets count
 
-### 4. **View Buses Function**
+### 4. **Delete Route Function**
+The `delete_route()` function removes a route entry from the system. The function:
+- Verifies that the bus exists
+- Accepts the bus number for the route entry to remove
+- Deletes the route record from `buses.json`
+
+### 5. **View Buses Function**
 The `view_buses()` function displays all buses in a formatted table showing:
 - Bus number
 - Route information
@@ -51,7 +57,7 @@ The `view_buses()` function displays all buses in a formatted table showing:
 
 This provides users with a complete overview of the fleet status and availability at any time.
 
-### 5. **Data Persistence with buses.json**
+### 6. **Data Persistence with buses.json**
 The `buses.json` file serves as the persistent data storage for the Bus Management System. This JSON file stores all bus information in a structured format:
 
 ```json
@@ -75,11 +81,12 @@ The `load_buses()` function reads this file at the start of operations or when n
 
 ### 6. **Menu-Driven Interface**
 The `main()` function provides an interactive menu that displays the following options:
-1. Add Bus - Create a new bus entry
+1. Add Route - Create a new route entry
 2. Book Ticket - Reserve seats on a bus
 3. Cancel Ticket - Remove a reservation
-4. View All Buses - Display fleet information
-5. Exit - Close the application
+4. Delete Route - Remove a route entry
+5. View All Buses - Display fleet information
+6. Exit - Close the application
 
 Users can navigate through the menu by entering numbers 1-5, making the system intuitive and user-friendly.
 
